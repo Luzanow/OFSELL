@@ -285,4 +285,7 @@ async def handle_price_editable(message: types.Message, state: FSMContext):
         user_data[uid]["items"].append(user_data[uid]["current_item"])
     user_data[uid]["current_item"] = {}
     await message.answer("Щоб завершити заявку — натисніть /done")
+if name == "__main__":
+    from aiogram import executor
+    executor.start_polling(dp, skip_updates=True)
 
