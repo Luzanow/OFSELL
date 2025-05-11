@@ -31,6 +31,10 @@ from aiogram.dispatcher import filters
 async def handle_city_selection(message: types.Message, state: FSMContext):
     city = message.text
     await message.answer(f"Місто збережено: {city}")
+await SellForm.choosing_category.set()
+
+# Тут викликати функцію вибору категорій
+await start_category_selection(message)
     # Тут має бути перехід до наступного кроку (наприклад, вибір категорій)
 # Міста з емодзі
 city_options = {
@@ -110,19 +114,13 @@ if __name__ == "__main__":
 
 
 @dp.message_handler(state=SellForm.choosing_category)
-async def category_step(message: types.Message, state: FSMContext):
-    user_data[message.from_user.id]["selected_categories"] = []
-    
-    categories = [
-        "Стіл Лофт", "Стіл ДСП", "Офісне крісло", "Стільці",
-        "Шафи", "Тумби", "Стелажі", "Сейфи", "Офісна техніка", "Інші меблі"
-    ]
-
+async def start_category_selection(message: types.Message):
     markup = InlineKeyboardMarkup(row_width=2)
+    categories = ["Стіл Лофт", "Стіл ДСП", "Офісне крісло", "Стільці", "Шафи", "Тумби", "Стелажі", "Сейфи", "Інше"]
     for cat in categories:
-        markup.insert(InlineKeyboardButton(f"◻️ {cat}", callback_data=f"cat_{cat}"))
-    markup.add(InlineKeyboardButton("✅ Завершити вибір", callback_data="cat_done"))
-    await message.answer("Оберіть меблі, які хочете продати:", reply_markup=markup)
+        markup.insert(InlineKeyboardButton(text=cat, callback_data=f"cat_{cat}"))
+    markup.add(InlineKeyboardButton(text="✅ Завершити вибір", callback_data="cat_done"))
+    await message.answer("Що хочете продати? Оберіть категорії:", reply_markup=markup)
 
 @dp.callback_query_handler(lambda c: c.data.startswith("cat_"), state=SellForm.choosing_category)
 async def toggle_category(callback: types.CallbackQuery, state: FSMContext):
