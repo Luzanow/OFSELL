@@ -82,7 +82,7 @@ async def save_city(message: types.Message, state: FSMContext):
     markup.add(InlineKeyboardButton("✅ Завершити вибір", callback_data="cat_done"))
     await message.answer("Що хочете продати? Оберіть категорії:", reply_markup=markup)
     await SellForm.choosing_category.set()
-    if name == "__main__":
+    if __name__ == "__main__":
     from aiogram import executor
     executor.start_polling(dp, skip_updates=True)
 
