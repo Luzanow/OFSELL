@@ -54,7 +54,7 @@ async def confirm_final(message: types.Message, state: FSMContext):
 
     # Запускаємо вибір категорій після вибору міста
     await category_step(message, state)
-        return
+    return
 
     caption = "<b>Заявка на викуп меблів</b>\n\n"
     all_photos = []
