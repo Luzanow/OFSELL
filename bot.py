@@ -25,6 +25,13 @@ async def start_handler(message: types.Message):
     markup.add(KeyboardButton("📍 Вибрати місто"))
     await message.answer("Привіт! Щоб почати оформлення заявки, натисніть кнопку нижче:", reply_markup=markup)
 
+from aiogram.dispatcher import filters
+
+@dp.message_handler(lambda message: message.text in city_options.keys())
+async def handle_city_selection(message: types.Message, state: FSMContext):
+    city = message.text
+    await message.answer(f"Місто збережено: {city}")
+    # Тут має бути перехід до наступного кроку (наприклад, вибір категорій)
 # Міста з емодзі
 city_options = {
     "Київ 🏙️": "Київ 🏙️",
