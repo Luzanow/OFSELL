@@ -9,6 +9,8 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 GROUP_ID = int(os.getenv("GROUP_ID"))
 ADMIN_ID = int(os.getenv("OWNER_ID"))
 
+from aiogram import Bot, Dispatcher, types
+
 bot = Bot(token=BOT_TOKEN, parse_mode="HTML")
 from aiogram import Bot, Dispatcher, types
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup, KeyboardButton, InputMediaPhoto
