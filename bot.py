@@ -31,7 +31,11 @@ from aiogram.dispatcher import filters
 async def handle_city_selection(message: types.Message, state: FSMContext):
     city = message.text
     await message.answer(f"Місто збережено: {city}")
-await SellForm.choosing_category.set()
+@dp.message_handler(lambda message: message.text in city_options.keys())
+async def handle_city_selection(message: types.Message, state: FSMContext):
+    city = message.text
+    await message.answer(f"Місто збережено: {city}")
+    await SellForm.choosing_category.set()
 
 # Тут викликати функцію вибору категорій
 await start_category_selection(message)
