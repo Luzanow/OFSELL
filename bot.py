@@ -19,6 +19,11 @@ ADMIN_ID = int(os.getenv("OWNER_ID"))
 bot = Bot(token=BOT_TOKEN, parse_mode="HTML")
 dp = Dispatcher(bot, storage=MemoryStorage())
 user_data = {}
+@dp.message_handler(commands=["start"])
+async def start_handler(message: types.Message):
+    markup = ReplyKeyboardMarkup(resize_keyboard=True)
+    markup.add(KeyboardButton("📍 Вибрати місто"))
+    await message.answer("Привіт! Щоб почати оформлення заявки, натисніть кнопку нижче:", reply_markup=markup)
 
 # Міста з емодзі
 city_options = {
